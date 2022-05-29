@@ -4,4 +4,8 @@
   npm  i
 ```
 
-## 导入数据库
+## 防止安装出错
+
+单独安装 bcrypt
+
+npm i bcrypt
