@@ -1362,3 +1362,14 @@ img {
     display: none;
   }
 }
+.btnlogin{
+  margin-left: 350px;
+  width: 80px;
+  height: 30px;
+  background-color: pink;
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+}

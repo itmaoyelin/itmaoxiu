@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
   <meta charset="utf-8">
-  <title>Sign in &laquo; Admin</title>
+  <title>登录</title>
   <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="../assets/css/admin.css">
+  <!-- png 格式也可以 -->
+  <link rel="icon" href="../assets/img/mao.png">
 </head>
+
 <body>
   <div class="login">
     <div class="login-wrap">
@@ -53,7 +57,8 @@
         },
         success: function (response) {
           // 登录成功 跳转到数据管理的首页面
-          location.href = 'index.html';
+          location.href = '/admin/index.html';
+          // console.log(response);
         },
         error: function () {
           // 登录失败
@@ -64,4 +69,5 @@
     });
   </script>
 </body>
+
 </html>

@@ -6,7 +6,7 @@ $('#logout').on('click', function () {
         type: 'post',
         url: '/logout',
         success: function () {
-          location.href = 'login.html';
+          location.href = '/admin/login.html';
         },
         error: function () {
           alert('退出失败')
