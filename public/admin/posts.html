@@ -39,6 +39,7 @@
 
           </select>
           <select class="form-control input-sm" name="state" id="state">
+            <option value="all">所有状态</option>
             <option value="0">草稿</option>
             <option value="1">已发布</option>
           </select>
@@ -117,7 +118,7 @@
       <td class="text-center">{{$value.state==0?'草稿':'已发布'}}</td>
       <td class="text-center">
         <a href="post-add.html?id={{$value._id}}" class="btn btn-default btn-xs">编辑</a>
-        <a href="javascript:;" class="btn btn-danger btn-xs" data-id="{{$value._id}}">删除</a>
+        <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value._id}}">删除</a>
       </td>
     </tr>
     {{/each}}
@@ -125,17 +126,30 @@
   <!--分页模板-->
   <script type="text/html" id="pageTpl">
     {{if data.page > 1}}
-    <li><a href="javascript:;" onclick="changePage({{data.page-1}})">上一页</a></li>
+    <li><a href="javascript:;"onclick="changePage({{data.page-1}})">上一页</a></li>
     {{/if}}
     {{each data.display}}
-    <li><a href="javascript:;" onclick="changePage({{$value}})">{{$value}}</a></li>
+    <li><a href="javascript:;"onclick="changePage({{$value}})" >{{$value}}</a></li>
     {{/each}}
     {{if data.page < data.pages}}
     <li><a href="javascript:;" onclick="changePage({{data.page+1}})">下一页</a></li>
     {{/if}}
   </script>
+  <!--过滤分页模板-->
+  <script type="text/html" id="pageFilterTpl">
+    {{if data.page > 1}}
+    <li><a href="javascript:;"onclick="changePageFilter({{data.page-1}},{{obj}})">上一页</a></li>
+    {{/if}}
+    {{each data.display}}
+    <li><a href="javascript:;"onclick="changePageFilter({{$value}},{{obj}})">{{$value}}</a></li>
+    {{/each}}
+    {{if data.page < data.pages}}
+    <li><a href="javascript:;" onclick="changePageFilter({{data.page+1}},{{obj}})">下一页</a></li>
+    {{/if}}
+  </script>
   <!--所有分类模板-->
   <script type="text/html" id="categoryTpl">
+    <option value="all">所有分类</option>
     {{each data}}
     <option value="{{$value._id}}">{{$value.title}}</option>
     {{/each}}

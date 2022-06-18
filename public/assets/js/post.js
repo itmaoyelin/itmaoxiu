@@ -1,5 +1,4 @@
 
-
 $.ajax({
     type: 'get',
     url: '/posts',
@@ -31,7 +30,7 @@ function changePage(page) {
         type: 'get',
         url: '/posts',
         data: {
-            page:page,
+            page: page,
         },
         success: function (response) {
             // console.log(response);
@@ -43,6 +42,26 @@ function changePage(page) {
         }
     });
 };
+
+ //过滤分页
+function changePageFilter(page, obj) {
+    obj.page = page;
+    // console.log(obj);
+$.ajax({
+    type: 'get',
+    url: '/posts',
+    data:obj,
+    success: function (response) {
+        // console.log(response);
+        var html = template('postsTpl', { data: response });
+        // console.log(html);
+        $('#postsBox').html(html);
+        var pageHtml = template('pageFilterTpl', { data: response ,obj:obj});
+        $('#pageBox').html(pageHtml);
+        }
+    });
+};
+
 
 //向服务器端发送请求 索要分类数据
 $.ajax({
@@ -60,18 +79,64 @@ $('#filterForm').on('submit', function () {
     // alert('1');
     //获取到管理员选择的过滤条件
     var formData = $(this).serialize();
+    //从表单数据中获取查询参数
+    function getFormDataParams(name) {
+    var paramsArr = formData.split('&');//分割
+    for (var i = 0; i < paramsArr.length; i++){
+        if (paramsArr[i].split('=')[0] == name) {
+            return paramsArr[i].split('=')[1];
+        }
+    }
+    return -1;
+    };
+    var category= getFormDataParams('category');
+    var state = getFormDataParams('state');
+    var obj = {};
+    if (category == 'all'&&state=='all') {
+        obj = {};
+    }
+    if (category != 'all' && state == 'all') {
+        obj.category = category;
+    }
+    if (category == 'all' && state != 'all') {
+        obj.state = state;
+    }
+    if (category != 'all' && state != 'all') {
+        obj.category = category;
+        obj.state = state;
+    }
+
+   
+    // console.log(obj);
+    // console.log(formData);
     $.ajax({
         type: 'get',
         url: '/posts',
-        data:formData,
+        data: obj,
         success: function (response) {
             // console.log(response);
             var html = template('postsTpl', { data: response });
             // console.log(html);
             $('#postsBox').html(html);
-            var pageHtml = template('pageTpl', { data: response });
+            var pageHtml = template('pageFilterTpl', { data: response ,obj:obj});
             $('#pageBox').html(pageHtml);
         }
     });
     return false;
+})
+
+
+//当用户进行删除文章时
+$('#postsBox').on('click', '.delete', function () {
+    var id = $(this).attr('data-id');
+    if (confirm('您确定要删除文章吗?')) {
+        // console.log(id);
+        $.ajax({
+            type: 'delete',
+            url: '/posts/' + id,
+            success: function () {
+                location.href = '/admin/posts.html'; //重定向
+            }
+        })
+    }
 })

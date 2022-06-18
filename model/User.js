@@ -89,7 +89,7 @@ const validateLogin = user => {
 	});
 }
 
-User.findOne({'email': 'itheima@itcast.cn'}).then(async result => {
+User.findOne({'email': 'maoyelin@itmao.com'}).then(async result => {
 	if (result == null) {
 		// 生成盐
 		const salt = await bcrypt.genSalt(10);
@@ -97,8 +97,8 @@ User.findOne({'email': 'itheima@itcast.cn'}).then(async result => {
 		const password = await bcrypt.hash('123456', salt);
 
 		const user = await User.create({
-			nickName: 'itcast',
-			email: 'itheima@itcast.cn',
+			nickName: 'maoyelin',
+			email: 'maoyelin@itmao.com',
 			password: password,
 			role: 'admin',
 			avatar: null,
