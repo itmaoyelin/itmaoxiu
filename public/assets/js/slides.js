@@ -24,8 +24,18 @@ $('#image').on('change', function () {
             $('#hiddenImage').val(response[0].image); //把图片地址存在隐藏域里面
         }
     });
-
 });
+//向服务器发送请求索要文章数据
+$.ajax({
+    type: 'get',
+    url: '/posts',
+    success: function (response) {
+        // console.log(response.records);
+        var html = template('linkTpl', { link: response.records });
+        $('#linkBox').html(html);
+    }
+});
+
 
 //添加轮播图
 $('#slidesForm').on('submit', function () {
