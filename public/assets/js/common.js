@@ -11,32 +11,32 @@ $('.aside').html(`<div class="profile">
 <h3 class="name">Maoker</h3>
 </div>
 <ul class="nav">
-<li class="active">
+<li class="${mark=='index'?'active':''}">
   <a href="/admin/index.html"><i class="fa fa-dashboard"></i>创作屋</a>
 </li>
-<li>
+<li class="${mark=='post'?'active':''}">
   <a href="#menu-posts" class="collapsed" data-toggle="collapse">
     <i class="fa fa-thumb-tack"></i>作品管理<i class="fa fa-angle-right"></i>
   </a>
   <ul id="menu-posts" class="collapse">
-    <li><a href="/admin/posts.html">所有文章</a></li>
-    <li><a href="/admin/post-add.html">写文章</a></li>
-    <li><a href="/admin/categories.html">分类目录</a></li>
+    <li class="${mark=='post'?'active':''}"><a href="/admin/posts.html">所有文章</a></li>
+    <li class="${mark=='post'?'active':''}"><a href="/admin/post-add.html">写文章</a></li>
+    <li class="${mark=='post'?'active':''}"><a href="/admin/categories.html">分类目录</a></li>
   </ul>
 </li>
-<li>
+<li class="${mark=='comment'?'active':''}">
   <a href="/admin/comments.html"><i class="fa fa-comments"></i>评论管理</a>
 </li>
-<li>
+<li class="${mark=='user'?'active':''}">
   <a href="/admin/users.html"><i class="fa fa-users"></i>用户管理</a>
 </li>
-<li>
+<li class=" ${mark=='settings'?'active':''}">
   <a href="#menu-settings" class="collapsed" data-toggle="collapse">
     <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
   </a>
   <ul id="menu-settings" class="collapse">
-    <li><a href="/admin/slides.html">图片轮播</a></li>
-    <li><a href="/admin/settings.html">网站设置</a></li>
+    <li class="${mark=='settings'?'active':''}"><a href="/admin/slides.html">图片轮播</a></li>
+    <li class="${mark=='settings'?'active':''}"><a href="/admin/settings.html">网站设置</a></li>
   </ul>
 </li>
 </ul>`);
