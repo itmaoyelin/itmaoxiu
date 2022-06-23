@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <title>注册</title>
+  <link rel="stylesheet" href="../assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="../assets/css/admin.css">
+  <!-- png 格式也可以 -->
+  <link rel="icon" href="/uploads/mao3.jpg" id="icon">
+</head>
+
+<body>
+  <div class="login">
+    <div class="login-wrap">
+      <img class="avatar" src="/assets/img/default.png">
+      <!-- 有错误信息时展示 -->
+      <!-- <div class="alert alert-danger">
+        <strong>错误！</strong> 用户名或密码错误！
+      </div> -->
+      <form id="register">
+        <div class="form-group">
+          <label for="nickName">昵称</label>
+          <input id="nickName" class="form-control" type="text" placeholder="请输入昵称" name="nickName">
+        </div>
+        <div class="form-group">
+          <label for="email">邮箱</label>
+          <input id="email" type="email" class="form-control" placeholder="请输入邮箱" name="email">
+        </div>
+        <div class="form-group">
+          <label for="password">密码</label>
+          <input id="password" type="password" class="form-control" placeholder="请输入密码" name="password">
+        </div>
+        <!--隐藏域-->
+        <input type="hidden" name="avatar" value="/assets/img/default.png">
+        <input type="hidden" name="role" value="normal">
+        <input type="hidden" name="status" value="1">
+        <button class="btn btn-primary btn-block" type="submit">注册</button>
+      </form>
+    </div>
+
+  </div>
+
+  <script src="../assets/vendors/jquery/jquery.min.js"></script>
+  <script type="text/javascript">
+    // 选择登录按钮并为其添加点击事件
+    $('#register').on('submit', function () {
+      var form = $(this).serialize();
+      // console.log(form);
+      // 获取用户输入的邮箱地址
+      var email = $('#email').val();
+      // 获取用户输入的密码
+      var password = $('#password').val();
+      var nickName = $('#nickName').val();
+      // 判断用户是否输入了昵称
+      if (nickName.trim().length == 0) {
+        alert('请输入昵称');
+        return;
+      }
+      // 判断用户是否输入了邮箱地址
+      if (email.trim().length == 0) {
+        alert('请输入邮箱')
+        return;
+      }
+      // 判断用户是否输入了密码
+      if (password.trim().length == 0) {
+        alert('请输入密码');
+        return;
+      }
+
+      // alert('可以注册');
+      $.ajax({
+        type: 'post',
+        url: '/users',
+        data: form,
+        success: function (response) {
+          // console.log(response);
+          alert('注册成功');
+          location.href = '/admin/login.html';
+        },
+      });
+      return false;
+    });
+
+  </script>
+</body>
+
+</html>

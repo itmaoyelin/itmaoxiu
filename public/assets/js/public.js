@@ -162,10 +162,11 @@ if (login) {
       // console.log(response);
       var nickName = response.nickName;
       var avatar = response.avatar;
-      $('.right').html(`<li><a class="nick" href="javascript:;"><img src="${avatar}" class="userPhoto"></img>${nickName}<a></li>
+      $('.right').html(`<li><a href="javascript:;"><img src="${avatar}" class="userPhoto"></img><p class="nick">${nickName}</p><a></li>
       <li><a href="javascript:;" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>`);
     }
   })
 } else {
-  $('.right').html(`<li><a href="/admin/login.html"><i class="fa fa-user-circle"></i>亲,请登录</a></li>`);
+  $('.right').html(`<li><a href="/admin/login.html"><i class="fa fa-user-circle"></i>亲,请登录</a>|<a href="/admin/register.html">免费注册</a></li>
+ `);
 }

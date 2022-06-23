@@ -551,7 +551,9 @@ img {
 }
 
 .userPhoto{
+  position: absolute;
   display: inline-block;
+  top:10px;
   width: 30px;
   height: 30px;
   border-radius: 50%;
@@ -559,6 +561,11 @@ img {
   -moz-border-radius: 50%;
   -ms-border-radius: 50%;
   -o-border-radius: 50%;
+}
+.nick{
+  margin-left: 40px;
+  display: inline-block;
+  
 }
 .header {
   width: 190px;
