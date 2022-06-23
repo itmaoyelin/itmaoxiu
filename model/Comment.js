@@ -15,7 +15,7 @@ const CommentSchema = new Schema({
 	// 评论内容
 	content: {
 		type: String,
-		minlength: 4,
+		minlength: 1,
 		required: true
 	},
 	// 评论文章
@@ -46,7 +46,7 @@ const validateComment = comment => {
 	// 定义对象验证规则
 	const schema = {
 		author: Joi.string().regex(objectIdReg).required().error(new Error('用户ID非法')),
-		content: Joi.string().min(4).required().error(new Error('评论不符合格式要求')),
+		content: Joi.string().min(1).required().error(new Error('评论不符合格式要求')),
 		post: Joi.string().regex(objectIdReg).required().error(new Error('评论文章ID非法')),
 		state: Joi.number().valid(0, 1)
 	};

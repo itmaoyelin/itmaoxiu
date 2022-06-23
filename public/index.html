@@ -12,14 +12,29 @@
 </head>
 
 <body>
-  <div class="topnav" id="topnav">
+  <div class="topnav">
     <!--顶部导航栏-->
+    <ul class="left" id="topleftnav">
+
+    </ul>
+    <ul class="right">
+      <!--登录退出-->
+    </ul>
   </div>
   <div class="wrapper">
 
-    <div class="header" id="navBox">
+    <div class="header">
       <!--侧边导航栏-->
+      <h1 class="logo"><a href="index.html"><img src="assets/img/mao.png" alt=""></a></h1>
+      <ul class="nav" id="navBox">
 
+      </ul>
+      <div class="search">
+        <form>
+          <input type="text" class="keys" placeholder="输入关键字">
+          <input type="submit" class="btn" value="搜索">
+        </form>
+      </div>
     </div>
     <div class="aside">
       <div class="widgets">
@@ -92,7 +107,7 @@
         <div class="entry">
           <div class="head">
             <span class="sort">{{$value.category.title}}</span>
-            <a href="/detail.html?id={{$value._id}}}">{{$value.title}}</a>
+            <a href="/detail.html?id={{$value._id}}">{{$value.title}}</a>
           </div>
           <div class="main">
             <p class="info">{{$value.author.nickName}} 发表于 {{$imports.formateDate($value.createAt)}}</p>
@@ -117,6 +132,7 @@
         </div>
     {{/each}}
   </script>
+  <script src="/login/status"></script>
   <script src="assets/js/home.js"></script>
   <script src="assets/js/common/formateDate.js"></script>
   <script src="assets/js/recommend.js"></script>

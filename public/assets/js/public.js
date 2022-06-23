@@ -1,3 +1,5 @@
+//
+
 //向服务器发送请求 索要随机推荐数据
 $.ajax({
     type: 'get',
@@ -65,7 +67,18 @@ function formateDate(date) {
     return year + '-' + month + '-' + day +' '+' ' +hours + ':' + minutes ;
 };
 
+//从浏览器地址栏中获取查询参数
+function getUrlParams(name) {
+  var paramsArr = location.search.substr(1).split('&');//截取之后再分割
+  for (var i = 0; i < paramsArr.length; i++){
+      if (paramsArr[i].split('=')[0] == name) {
+          return paramsArr[i].split('=')[1];
+      }
+  }
+  return -1;
+}
 
+// console.log(login);
 //向服务器端发送请求 索要分类数据
 $.ajax({
     type: 'get',
@@ -74,50 +87,34 @@ $.ajax({
         // console.log(response);
         //导航栏
         var topnavTpl = `
-        <ul class="left">
         <li><a href="/index.html">首页</a></li>
         {{each data}}
         <li><a href="/list.html?id={{$value._id}}">{{$value.title}}</a></li>
         {{/each}}
-      </ul>
-      <ul class="right">
-        <li><a href="/admin/login.html"><i class="fa fa-user-circle"></i>登录</a></li>
-        <li><a href="javascript:;" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>
-      </ul>
         `;
-        var html = template.render(topnavTpl, { data: response });
+        var html = template.render(topnavTpl, { data: response});
         // console.log(html);
-        $('#topnav').html(html);
+        $('#topleftnav').html(html);
         
         //侧边导航栏
         var navTpl = `
-        <h1 class="logo"><a href="index.html"><img src="assets/img/mao.png" alt=""></a></h1>
-        <ul class="nav">
         {{each datas}}
         <li><a href="/list.html?id={{$value._id}}"><i class="fa {{$value.className}}"></i>{{$value.title}}</a></li>
         {{/each}}
-        </ul>
-        <div class="search">
-        <form>
-          <input type="text" class="keys" placeholder="输入关键字">
-          <input type="submit" class="btn" value="搜索">
-        </form>
-      </div>
         `;
         var navHtml = template.render(navTpl, { datas: response });
         // console.log(navHtml);
         $('#navBox').html(navHtml);
 
         //退出
-       $('#logout').on('click', function () {
-       var isConfirm = confirm('您真的要退出吗?');
-       if (isConfirm) {
+       $('.right').on('click','#logout', function () {
+       if (confirm('您真的要退出吗?')) {
        // alert('用户点击了确认按钮')
        $.ajax({
         type: 'post',
         url: '/logout',
         success: function () {
-          location.href = '/admin/login.html';
+          location.reload();
         },
         error: function () {
           alert('退出失败')
@@ -143,3 +140,32 @@ $.ajax({
 //页尾
 $('#footer').html(`<p>Copyright ©itmao 2022 备案号：<a target="_blank" rel="nofollow" href="https://beian.miit.gov.cn/">itmao</a> </p>`);
 
+//获取到搜索表单 为其添加表单提交事件
+$('.search form').on('submit', function () {
+  // alert('qS');
+  //获取到用户输入的关键字
+  var key = $(this).find('.keys').val();
+  // console.log(keys);
+  //跳转到搜索结果页面 并传递用户输入的关键字
+  location.href = '/search.html?key=' + key;
+
+  return false;
+});
+
+
+//判断用户登录状态
+if (login) {
+  $.ajax({
+    type: 'get',
+    url: '/users/' + userId,
+    success: function (response) {
+      // console.log(response);
+      var nickName = response.nickName;
+      var avatar = response.avatar;
+      $('.right').html(`<li><a class="nick" href="javascript:;"><img src="${avatar}" class="userPhoto"></img>${nickName}<a></li>
+      <li><a href="javascript:;" id="logout"><i class="fa fa-sign-out"></i>退出</a></li>`);
+    }
+  })
+} else {
+  $('.right').html(`<li><a href="/admin/login.html"><i class="fa fa-user-circle"></i>亲,请登录</a></li>`);
+}

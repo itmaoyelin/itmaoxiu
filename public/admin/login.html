@@ -56,8 +56,13 @@
           password: password
         },
         success: function (response) {
-          // 登录成功 跳转到数据管理的首页面
-          location.href = '/admin/index.html';
+          if (response.role == 'admin') {
+            // 登录成功 跳转到数据管理的首页面
+            location.href = '/admin/index.html';
+          } else {
+            location.href = '/index.html';
+          }
+
           // console.log(response);
         },
         error: function () {

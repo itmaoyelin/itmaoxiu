@@ -60,7 +60,7 @@ $('#logout').on('click', function () {
       })
     }
 });
-
+// console.log(userId);
 //向服务器端发送请求，索要登录用户信息
 $.ajax({
   type: 'get',

@@ -12,14 +12,29 @@
 </head>
 
 <body>
-  <div class="topnav" id="topnav">
+  <div class="topnav">
     <!--顶部导航栏-->
+    <ul class="left" id="topleftnav">
+
+    </ul>
+    <ul class="right">
+      <!--登录退出-->
+    </ul>
   </div>
   <div class="wrapper">
 
-    <div class="header" id="navBox">
+    <div class="header">
       <!--侧边导航栏-->
+      <h1 class="logo"><a href="index.html"><img src="assets/img/mao.png" alt=""></a></h1>
+      <ul class="nav" id="navBox">
 
+      </ul>
+      <div class="search">
+        <form>
+          <input type="text" class="keys" placeholder="输入关键字">
+          <input type="submit" class="btn" value="搜索">
+        </form>
+      </div>
     </div>
     <div class="aside">
       <div class="widgets">
@@ -46,23 +61,8 @@
       </div>
     </div>
     <div class="content">
-      <div class="article">
-        <div class="breadcrumb">
-          <dl>
-            <dt>当前位置：</dt>
-            <dd><a href="javascript:;">奇趣事</a></dd>
-            <dd>变废为宝！将手机旧电池变为充电宝的Better RE移动电源</dd>
-          </dl>
-        </div>
-        <h2 class="title">
-          <a href="javascript:;">又现酒窝夹笔盖新技能 城里人是不让人活了！</a>
-        </h2>
-        <div class="meta">
-          <span>DUX主题小秘 发布于 2020-06-29</span>
-          <span>分类: <a href="javascript:;">奇趣事</a></span>
-          <span>阅读: (2421)</span>
-          <span>评论: (143)</span>
-        </div>
+      <div class="article" id="articleBox">
+
       </div>
       <style type="text/css">
         .comment {
@@ -82,12 +82,32 @@
           height: 30px;
           margin-top: 10px;
         }
+
+        .authorImage {
+          display: inline-block;
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
+        }
+
+        .authorName {
+          display: inline-block;
+          height: 30px;
+        }
+
+        .authorName p {
+          font-size: 20px;
+          color: black;
+        }
       </style>
-      <div class="comment">
-        <form>
-          <textarea></textarea>
-          <input type="submit" value="提交评论">
-        </form>
+      <div class="comment" id="commentBox">
+
+      </div>
+      <div>
+        <h2 id="listCount"></h2><br>
+        <ul id="commentList">
+
+        </ul>
       </div>
       <div class="panel hots">
         <h3>热门推荐</h3>
@@ -103,8 +123,44 @@
   <script src="assets/vendors/jquery/jquery.js"></script>
   <script src="assets/vendors/nprogress/nprogress.js"></script>
   <script src="assets/vendors/art-template/template-web.js"></script>
+  <script type="text/html" id="detailTpl">
+    <div class="breadcrumb">
+      <dl>
+        <dt>当前位置：</dt>
+        <dd><a href="/list.html?id={{category._id}}">{{category.title}}</a></dd>
+        <dd>{{title}}</dd>
+      </dl>
+    </div>
+    <h2 class="title">
+      <a href="javascript:;">{{title}}</a>
+    </h2>
+    <div class="meta">
+        <img src="{{author.avatar}}" alt="头像丢失" class="authorImage">
+        <div class="authorName"><p>{{author.nickName}}</p><br><span>发布于 {{$imports.formateDate(createAt)}}</span></div>
+        <span>分类: <a href="/list.html?id={{category._id}}">{{category.title}}</a></span>
+        <span>阅读: ({{meta.views}})</span>
+        <span>评论: ({{meta.comments}})</span>
+        <a href="javascript:;" class="like"><i class="fa fa-thumbs-up"></i>赞({{meta.likes}})</a>
+    </div><br>
+       <p>{{content}} </p>
+  </script>
+
+  <script type="text/html" id="commentListTpl">
+    {{each data}}
+    <li>
+          <img src="{{$value.author.avatar}}" alt="头像丢失" class="authorImage">
+          <div class="authorName"><p>{{$value.author.nickName}}</p><br>
+           <span> 在 {{$imports.formateDate($value.createAt)}}&nbsp;&nbsp; 评论:</span>
+           <span>{{$value.content}}</span>&nbsp;&nbsp;&nbsp;&nbsp;
+           <span>{{$value.state==0?'待审核':'已批准'}}</span>
+          </div>
+    </li><br>
+    {{/each}}
+  </script>
+  <script src="/login/status"></script>
   <script src="assets/js/recommend.js"></script>
   <script src="assets/js/public.js"></script>
+  <script src="assets/js/detail.js"></script>
 </body>
 
 </html>

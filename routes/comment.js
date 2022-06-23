@@ -7,6 +7,8 @@ comment.post('/', require('./actions/comment/create'));
 comment.delete('/:id', require('./actions/comment/findByIdAndDelete'));
 // 获取评论列表
 comment.get('/', require('./actions/comment/find'));
+// 获取指定文章评论列表
+comment.get('/post/:id', require('./actions/comment/findByPostId'));
 // 获取评论数量
 comment.get('/count', require('./actions/comment/count'));
 // 获取最新评论

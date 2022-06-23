@@ -39,7 +39,7 @@ function changePage(page) {
             page: page,
         },
         success: function (response) {
-            // console.log(response);
+            console.log(response);
             var html = template('commentsTpl', response);
             // console.log(html);
             $('#commentsBox').html(html);
